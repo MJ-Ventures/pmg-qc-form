@@ -36,8 +36,8 @@ Install the dependencies:
 
 ## Running the Application Locally
 Start the Streamlit application:
-streamlit run main.py
 
+```sh
 streamlit run main.py
 
 ## Using GitHub Codespaces
@@ -54,6 +54,7 @@ Set up the environment:
 Once the Codespace is ready, open the terminal.
 Run the following commands to install the dependencies and start the application:
 
+```sh
 pip install -r requirements.txt
 streamlit run main.py
 
