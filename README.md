@@ -27,8 +27,11 @@ MJV Free Chat Template is a Python-based application designed to provide advance
 
 ## Create and activate a virtual environment:
 
+```sh
 python3 -m venv venv
 source venv/bin/activate
+```
+
 
 ## Install the dependencies:
 
@@ -39,6 +42,7 @@ Start the Streamlit application:
 
 ```sh
 streamlit run main.py
+```
 
 ## Using GitHub Codespaces
 GitHub Codespaces allows you to run and test the application in a cloud-based development environment. Here's how to set it up:
@@ -57,5 +61,5 @@ Run the following commands to install the dependencies and start the application
 ```sh
 pip install -r requirements.txt
 streamlit run main.py
-
+```
 
