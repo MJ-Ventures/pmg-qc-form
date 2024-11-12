@@ -53,38 +53,30 @@ if pmg_file and client_file:
 
 # Section for Expected Job Titles
 st.subheader("Add Expected Job Titles")
-for i, job_title in enumerate(st.session_state["job_title_inputs"]):
-    st.session_state["job_title_inputs"][i] = st.text_input(f"Expected Job Title {i+1}", value=job_title, key=f"job_title_{i}")
+job_titles_bulk_input = st.text_area("Job Titles Bulk Input", value="\n".join(st.session_state.get("job_title_inputs", [])))
 
-if st.button("Add Another Job Title"):
-    st.session_state["job_title_inputs"].append("")  # Add new input field
-
-# Confirmation button to save job titles
 if st.button("Confirm Expected Job Titles"):
-    st.session_state["job_titles"] = [title for title in st.session_state["job_title_inputs"] if title]
+    st.session_state["job_title_inputs"] = [title.strip() for title in job_titles_bulk_input.split("\n") if title.strip()]
+    st.session_state["job_titles"] = st.session_state["job_title_inputs"]
     st.success("Expected job titles saved!")
 
 # Display all saved job titles
-if st.session_state["job_titles"]:
+if st.session_state.get("job_titles"):
     st.write("Saved Expected Job Titles:")
     for idx, title in enumerate(st.session_state["job_titles"]):
         st.write(f"{idx + 1}. {title}")
 
 # Section for Expected Job Levels
 st.subheader("Add Expected Job Levels")
-for i, job_level in enumerate(st.session_state["job_level_inputs"]):
-    st.session_state["job_level_inputs"][i] = st.text_input(f"Expected Job Level {i+1}", value=job_level, key=f"job_level_{i}")
+job_levels_bulk_input = st.text_area("Job Levels Bulk Input", value="\n".join(st.session_state.get("job_level_inputs", [])))
 
-if st.button("Add Another Job Level"):
-    st.session_state["job_level_inputs"].append("")  # Add new input field
-
-# Confirmation button to save job levels
 if st.button("Confirm Expected Job Levels"):
-    st.session_state["job_levels"] = [level for level in st.session_state["job_level_inputs"] if level]
+    st.session_state["job_level_inputs"] = [level.strip() for level in job_levels_bulk_input.split("\n") if level.strip()]
+    st.session_state["job_levels"] = st.session_state["job_level_inputs"]
     st.success("Expected job levels saved!")
 
 # Display all saved job levels
-if st.session_state["job_levels"]:
+if st.session_state.get("job_levels"):
     st.write("Saved Expected Job Levels:")
     for idx, level in enumerate(st.session_state["job_levels"]):
         st.write(f"{idx + 1}. {level}")
@@ -98,12 +90,12 @@ if st.button("Submit"):
 
     # Prepare data for API request
     data = {
-        "expected_job_titles": expected_job_titles,
-        "expected_job_levels": expected_job_levels,
+        "expected_job_titles": json.dumps(expected_job_titles),
+        "expected_job_levels": json.dumps(expected_job_levels),
         "vendorWorkflow": vendor_workflow,  # Checkbox determines this value
         "columnHeaders": json.dumps(column_mappings)
     }
-    
+    st.write("Data to be submitted:", data)
     # Send API request with PMG Template CSV file
     pmg_file.seek(0)  # Reset file pointer to the beginning
     files = {"file": ("pmg_template.csv", pmg_file, "text/csv")}
