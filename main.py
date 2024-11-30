@@ -99,7 +99,7 @@ if st.button("Submit"):
     # Send API request with PMG Template CSV file
     pmg_file.seek(0)  # Reset file pointer to the beginning
     files = {"file": ("pmg_template.csv", pmg_file, "text/csv")}
-    url = "https://pmg-360-api-891212753818.us-central1.run.app/api/qc_workflow/process"
+    url = "https://pmg-360-api-232752599914.us-central1.run.app/api/qc_workflow/process"
 
     response = requests.post(url, files=files, data=data)
     
